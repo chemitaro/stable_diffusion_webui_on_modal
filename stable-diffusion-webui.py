@@ -9,8 +9,8 @@ import shlex
 import os
 
 # modal系の変数の定義
-stub = modal.Stub("stable-diffusion-webui")
-volume_main = modal.SharedVolume().persist("stable-diffusion-webui-main")
+stub = modal.Stub("stable-diffusion-webui-automatic1111")
+volume_main = modal.SharedVolume().persist("stable-diffusion-webui-automatic1111-main")
 
 # 色んなパスの定義
 webui_dir = "/content/stable-diffusion-webui"
@@ -27,7 +27,7 @@ model_ids = [
 
 
 @stub.function(
-    image=modal.Image.from_dockerhub("python:3.8-slim")
+    image=modal.Image.from_dockerhub("python:3.10")
     .apt_install(
         "git", "libgl1-mesa-dev", "libglib2.0-0", "libsm6", "libxrender1", "libxext6"
     )
@@ -35,47 +35,52 @@ model_ids = [
         "pip install -e git+https://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers"
     )
     .pip_install(
-        "blendmodes==2022",
-        "transformers==4.25.1",
-        "accelerate==0.12.0",
-        "basicsr==1.4.2",
-        "gfpgan==1.3.8",
-        "gradio==3.16.2",
-        "numpy==1.23.3",
-        "Pillow==9.4.0",
-        "realesrgan==0.3.0",
-        "torch",
-        "omegaconf==2.2.3",
-        "pytorch_lightning==1.7.6",
-        "scikit-image==0.19.2",
+        "astunparse",
+        "blendmodes",
+        "accelerate",
+        "basicsr",
         "fonts",
         "font-roboto",
-        "timm==0.6.7",
-        "piexif==1.1.3",
-        "einops==0.4.1",
-        "jsonmerge==1.8.0",
-        "clean-fid==0.1.29",
-        "resize-right==0.0.2",
-        "torchdiffeq==0.2.3",
-        "kornia==0.6.7",
-        "lark==1.1.2",
-        "inflection==0.5.1",
-        "GitPython==3.1.27",
-        "torchsde==0.2.5",
-        "safetensors==0.2.7",
-        "httpcore<=0.15",
-        "tensorboard==2.9.1",
-        "taming-transformers==0.0.1",
-        "clip",
+        "facexlib",
+        "gfpgan==1.3.8",
+        "gradio==3.29.0",
+        "numpy",
+        "omegaconf",
+        "opencv-contrib-python",
+        "requests",
+        "piexif",
+        "Pillow",
+        "pytorch_lightning==1.7.7",
+        "realesrgan",
+        "scikit-image>=0.19",
+        "timm==0.4.12",
+        "transformers==4.25.1",
+        "torch",
+        "einops",
+        "jsonmerge",
+        "clean-fid",
+        "resize-right",
+        "torchdiffeq",
+        "kornia",
+        "lark",
+        "inflection",
+        "GitPython",
+        "torchsde",
+        "safetensors",
+        "psutil",
+        "rich",
+        "colorama",
         "xformers",
+        "clip",
+        "gdown",
+        "httpcore",
+        "tensorboard",
+        "taming-transformers",
         "test-tube",
         "diffusers",
         "invisible-watermark",
         "pyngrok",
-        "xformers==0.0.16rc425",
-        "gdown",
-        "huggingface_hub",
-        "colorama",
+        "huggingface_hub"
     )
     .pip_install("git+https://github.com/mlfoundations/open_clip.git@bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b"),
     secret=modal.Secret.from_name("my-huggingface-secret"),
@@ -88,7 +93,7 @@ async def run_stable_diffusion_webui():
 
     webui_dir_path = Path(webui_model_dir)
     if not webui_dir_path.exists():
-        subprocess.run(f"git clone -b v2.0 https://github.com/camenduru/stable-diffusion-webui {webui_dir}", shell=True)
+        subprocess.run(f"git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui {webui_dir}", shell=True)
 
     # Hugging faceからファイルをダウンロードしてくる関数
     def download_hf_file(repo_id, filename):
