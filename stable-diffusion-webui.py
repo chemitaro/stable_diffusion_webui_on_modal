@@ -2,30 +2,20 @@ from colorama import Fore
 from pathlib import Path
 
 import modal
-import shutil
 import subprocess
 import sys
 import shlex
 import os
 
-# modal系の変数の定義
+# modal系の変数を定義
 stub = modal.Stub("stable-diffusion-webui-automatic1111")
 volume_main = modal.SharedVolume().persist("stable-diffusion-webui-automatic1111-main")
 
-# 色んなパスの定義
+# webui内のパスを定義
 webui_dir = "/content/stable-diffusion-webui"
 webui_model_dir = webui_dir + "/models/Stable-diffusion/"
 webui_lora_dir = webui_dir + "/models/Lora/"
 webui_texture_dir = webui_dir + "/embeddings/"
-
-# HuggingFaceのモデルのID
-# hugging_face_model_ids = [
-#     {
-#         "repo_id": "hakurei/waifu-diffusion-v1-4",
-#         "model_path": "wd-1-4-anime_e1.ckpt",
-#         "config_file_path": "wd-1-4-anime_e1.yaml",
-#     },
-# ]
 
 # Modelファイル
 model_files = [
@@ -167,7 +157,7 @@ texture_files = [
     timeout=6000,
 )
 async def run_stable_diffusion_webui():
-    print(Fore.CYAN + "\n---------- Setup Start ----------\n")
+    print(Fore.CYAN + "\n---------- Download Start ----------\n")
 
     webui_dir_path = Path(webui_model_dir)
     if not webui_dir_path.exists():
@@ -185,39 +175,7 @@ async def run_stable_diffusion_webui():
     for texture_file in texture_files:
         download_file(texture_file["url"], webui_texture_dir + texture_file["file_name"])
 
-    # Hugging faceからファイルをダウンロードしてくる関数
-    # def download_hf_file(repo_id, filename):
-    #     from huggingface_hub import hf_hub_download
-
-    #     download_dir = hf_hub_download(repo_id=repo_id, filename=filename)
-    #     return download_dir
-
-
-    # for model_id in hugging_face_model_ids:
-    #     print(Fore.GREEN + model_id["repo_id"] + "のセットアップを開始します...")
-
-    #     if not Path(webui_model_dir + model_id["model_path"]).exists():
-    #         # モデルのダウンロード＆コピー
-    #         model_downloaded_dir = download_hf_file(
-    #             model_id["repo_id"],
-    #             model_id["model_path"],
-    #         )
-    #         shutil.copy(model_downloaded_dir, webui_model_dir + os.path.basename(model_id["model_path"]))
-
-
-    #     if "config_file_path" not in model_id:
-    #         continue
-
-    #     if not Path(webui_model_dir + model_id["config_file_path"]).exists():
-    #         # コンフィグのダウンロード＆コピー
-    #         config_downloaded_dir = download_hf_file(
-    #             model_id["repo_id"], model_id["config_file_path"]
-    #         )
-    #         shutil.copy(config_downloaded_dir, webui_model_dir + os.path.basename(model_id["config_file_path"]))
-
-        # print(Fore.GREEN + model_id["repo_id"] + "のセットアップが完了しました！")
-
-    print(Fore.CYAN + "\n---------- Setup Complete ----------\n")
+    print(Fore.CYAN + "\n---------- Download Complete ----------\n")
 
     # WebUIを起動
     sys.path.append(webui_dir)
@@ -226,7 +184,6 @@ async def run_stable_diffusion_webui():
     from launch import start, prepare_environment
 
     prepare_environment()
-    # 最初のargumentは無視されるので注意
     sys.argv = shlex.split("--a --gradio-debug --share --xformers --enable-insecure-extension-access")
     start()
 
