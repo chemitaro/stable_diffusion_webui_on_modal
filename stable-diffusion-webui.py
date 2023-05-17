@@ -24,72 +24,22 @@ model_files = [
         "file_name": "Chilloutmix-Ni-pruned-fp32-fix.safetensors",
         "info": "https://civitai.com/models/6424/chilloutmix",
     },
-    {
-        "url": "https://civitai.com/api/download/models/63786",
-        "file_name": "bra_v5.safetensors",
-        "info": "https://civitai.com/models/25494/brabeautiful-realistic-asians-v2",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/29460",
-        "file_name": "realisticVisionV20_v20.safetensors",
-        "info": "https://civitai.com/models/4201/realistic-vision-v20",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/15640",
-        "file_name": "uberRealisticPornMerge_urpmv13.safetensors",
-        "info": "https://civitai.com/models/2661/uber-realistic-porn-merge-urpm",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/56401",
-        "file_name": "lazymixRealAmateur_v20.safetensors",
-        "info": "https://civitai.com/models/10961?modelVersionId=56401",
-    },
 ]
 
 # Loraファイル
 lora_files = [
-    {
-        "url": "https://civitai.com/api/download/models/16677",
-        "file_name": "cuteGirlMix4_v10.safetensors",
-        "info": "https://civitai.com/models/14171/cutegirlmix4",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/34562",
-        "file_name": "JapaneseDollLikeness_v15.safetensors",
-        "info": "https://civitai.com/models/28811/japanesedolllikeness-v15",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/26413",
-        "file_name": "public_v1.0-000005.safetensors",
-        "info": "https://civitai.com/models/22123/in-public-photographers?modelVersionId=26413",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/48983",
-        "file_name": "blacked_v1.5.safetensors",
-        "info": "https://civitai.com/models/44353/blacked",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/10187",
-        "file_name": "skirtlift-v1.safetensors",
-        "info": "https://civitai.com/models/8631/skirtlift-the-astonishing-sequel-to-shirtlift",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/19492",
-        "file_name": "GodPussy2_Innie.safetensors",
-        "info": "https://civitai.com/models/10332/realistic-vaginas-god-pussy-2-innie",
-    },
-    {
-        "url": "https://civitai.com/api/download/models/18077",
-        "file_name": "Creampie_v11.safetensors",
-        "info": "https://civitai.com/models/14557/creampie-and-hairy-pussy",
-    },
+    # {
+    #     "url": "https://civitai.com/api/download/models/xxxxx",
+    #     "file_name": "xxxxx..safetensors",
+    #     "info": "",
+    # }
 ]
 
 # Textureファイル
 texture_files = [
     # {
-    #     "url": "",
-    #     "file_name": "",
+    #     "url": "https://civitai.com/api/download/models/xxxxx",
+    #     "file_name": "xxxxx..safetensors",
     #     "info": "",
     # }
 ]
